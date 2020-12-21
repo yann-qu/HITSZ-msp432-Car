@@ -75,7 +75,7 @@ policies, either expressed or implied, of the FreeBSD Project.
 #include "..\inc\PWM.h"
 #include "..\inc\Reflectance.h"
 
-#define VELOCITY0 3500
+#define VELOCITY0 3800
 
 // 延时并停止电机输出
 void TimedPause(uint32_t time) {
@@ -90,7 +90,8 @@ void TimedPause(uint32_t time) {
 // reflact
 uint8_t Data;
 int32_t position;
-void    reflactance(void) {
+
+void reflactance(void) {
 
     Data     = Reflectance_Read(1000);
     position = Reflectance_Position(Data);
