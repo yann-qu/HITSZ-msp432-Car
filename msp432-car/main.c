@@ -81,7 +81,8 @@ policies, either expressed or implied, of the FreeBSD Project.
 void TimedPause(uint32_t time) {
     Clock_Delay1ms(time); // run for a while and stop
     Motor_Stop(); // Stop the motors, power down the drivers, and set the PWM
-                  // speed control to 0% duty cycle.
+                      // speed control to 0% duty cycle.
+                      //* 最好不要删，可以防止拐弯过陡
     // while(LaunchPad_Input()==0);  // wait for touch
     // while(LaunchPad_Input());     // wait for release
 }
@@ -104,14 +105,14 @@ void reflactance(void) {
     else if (position >= 237) {
         Motor_Stop();
         TimedPause(100);
-        Motor_Forward(2000, 7000);
+        Motor_Forward(1000, 6000);
         TimedPause(100);
     }
     //*
     else if (position <= -237) {
         Motor_Stop();
         TimedPause(100);
-        Motor_Forward(7000, 2000);
+        Motor_Forward(6000, 1000);
         TimedPause(100);
     }
     //*
@@ -141,8 +142,8 @@ void reflactance(void) {
             if ((Data == 0xF8) || (Data == 0xF0) || (Data == 0xE0)) {
                 Motor_Forward(VELOCITY0, VELOCITY0);
                 TimedPause(150);
-                Motor_Right(4050, 4050);
-                TimedPause(350);
+                Motor_Right(4025, 4025);
+                TimedPause(400);
             }
         }
     }
@@ -158,7 +159,7 @@ void reflactance(void) {
                 TimedPause(150);
                 Data = Reflectance_Read(1000);
                 if (Data == 0x00) {
-                    Motor_Left(4050, 4050);
+                    Motor_Left(4025, 4025);
                     TimedPause(400);
                 } else
                     Motor_Forward(VELOCITY0, VELOCITY0);
