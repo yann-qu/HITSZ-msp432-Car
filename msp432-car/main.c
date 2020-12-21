@@ -80,8 +80,8 @@ policies, either expressed or implied, of the FreeBSD Project.
 // 延时并停止电机输出
 void TimedPause(uint32_t time) {
     Clock_Delay1ms(time); // run for a while and stop
-    Motor_Stop();         // Stop the motors, power down the drivers, and set the PWM
-                            // speed control to 0% duty cycle.
+    Motor_Stop(); // Stop the motors, power down the drivers, and set the PWM
+                  // speed control to 0% duty cycle.
     // while(LaunchPad_Input()==0);  // wait for touch
     // while(LaunchPad_Input());     // wait for release
 }
@@ -90,7 +90,7 @@ void TimedPause(uint32_t time) {
 // reflact
 uint8_t Data;
 int32_t position;
-void reflactance(void) {
+void    reflactance(void) {
 
     Data     = Reflectance_Read(1000);
     position = Reflectance_Position(Data);
@@ -162,15 +162,17 @@ void reflactance(void) {
             }
         }
     }
+    //* 未识别到黑线
     else if (Data == 0x00) {
-        Motor_Forward(VELOCITY0*0.8, VELOCITY0*0.8);
+        Motor_Forward(VELOCITY0 * 0.8, VELOCITY0 * 0.8);
     }
 }
 
 
+// 停止运动
 void endstop(void) {
     Data = Reflectance_Read(1000);
-    if (Data == 0xDB) {
+    if (Data == 0xDB) { // 1101 1011
         Motor_Stop();
         while (LaunchPad_Input() == 0)
             ; // wait for touch
@@ -208,17 +210,17 @@ void bumprun1(void) {
     uint8_t numflag1 = 0;
     numflag1         = Bump_Read1();
     if ((numflag1 & 0xED) != 0xED) {
-        Motor_Backward(4000, 4000);
-        TimedPause(300);   // SysTick_Wait10ms(30);
-        Motor_Right(4000, 3900);
-        TimedPause(400);   // SysTick_Wait10ms(30);
+        Motor_Backward(4000, 4000); // 后退
+        TimedPause(300);            // SysTick_Wait10ms(30);
+        Motor_Right(4000, 3900);    //转弯
+        TimedPause(400);            // SysTick_Wait10ms(30);
     }
 }
 
 
 int main(void) {
     Clock_Init48MHz(); // Configure the system clock to run at the fastest
-                           // and most accurate settings.
+                       // and most accurate settings.
     LaunchPad_Init();  // init built-in switches and LEDs
     Bump_Init();       // bump switches
     Motor_Init();      // your function
@@ -228,6 +230,7 @@ int main(void) {
         ; // wait for touch
     while (LaunchPad_Input())
         ; // wait for release
+
     // write a main program that uses PWM to move the robot
     // like Program13_1, but uses TimerA1 to periodically
     // check the bump switches, stopping the robot on a collision
