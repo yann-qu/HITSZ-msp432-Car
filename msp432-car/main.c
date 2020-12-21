@@ -75,7 +75,7 @@ policies, either expressed or implied, of the FreeBSD Project.
 #include "..\inc\PWM.h"
 #include "..\inc\Reflectance.h"
 
-#define VELOCITY0 3800
+#define VELOCITY0 4000
 
 // 延时并停止电机输出
 void TimedPause(uint32_t time) {
@@ -137,14 +137,10 @@ void reflactance(void) {
         Data = Reflectance_Read(1000);
         TimedPause(5);
         if ((Data == 0xF8) || (Data == 0xF0) || (Data == 0xE0)) {
-            Data = Reflectance_Read(1000);
-            TimedPause(5);
-            if ((Data == 0xF8) || (Data == 0xF0) || (Data == 0xE0)) {
-                Motor_Forward(VELOCITY0, VELOCITY0);
-                TimedPause(150);
-                Motor_Right(4025, 4025);
-                TimedPause(400);
-            }
+            Motor_Forward(VELOCITY0, VELOCITY0);
+            TimedPause(150);
+            Motor_Right(4025, 4025);
+            TimedPause(400);
         }
     }
     //* 直角左转
@@ -152,18 +148,10 @@ void reflactance(void) {
         Data = Reflectance_Read(1000);
         TimedPause(5);
         if ((Data == 0x1F) || (Data == 0x0F) || (Data == 0x07)) {
-            TimedPause(5);
-            Data = Reflectance_Read(1000);
-            if ((Data == 0x1F) || (Data == 0x0F) || (Data == 0x07)) {
-                Motor_Forward(VELOCITY0, VELOCITY0);
-                TimedPause(150);
-                Data = Reflectance_Read(1000);
-                if (Data == 0x00) {
-                    Motor_Left(4025, 4025);
-                    TimedPause(400);
-                } else
-                    Motor_Forward(VELOCITY0, VELOCITY0);
-            }
+            Motor_Forward(VELOCITY0, VELOCITY0);
+            TimedPause(150);
+            Motor_Left(4025, 4025);
+            TimedPause(400);
         }
     }
     //* 未识别到黑线
