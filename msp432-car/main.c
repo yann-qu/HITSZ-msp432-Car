@@ -134,10 +134,10 @@ void reflactance(void) {
     //* Ö±½ÇÓÒ×ª
     if ((Data == 0xF8) || (Data == 0xF0) || (Data == 0xE0)) {
         Data = Reflectance_Read(1000);
-        TimedPause(10);
+        TimedPause(5);
         if ((Data == 0xF8) || (Data == 0xF0) || (Data == 0xE0)) {
             Data = Reflectance_Read(1000);
-            TimedPause(10);
+            TimedPause(5);
             if ((Data == 0xF8) || (Data == 0xF0) || (Data == 0xE0)) {
                 Motor_Forward(VELOCITY0, VELOCITY0);
                 TimedPause(150);
