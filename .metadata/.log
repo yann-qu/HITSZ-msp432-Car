@@ -651,3 +651,37 @@ directory of your installation. View the XDS110SupportReadMe.pdf
 file there for instructions.
 (Emulation package 9.2.0.00002)
 
+
+!ENTRY com.ti.ccstudio.debug 1 0 2020-12-21 15:55:49.208
+!MESSAGE DS_ERROR: CS_DAP_0: Error initializing emulator: (Error -260 @ 0x0) An attempt to connect to the XDS110 failed. The cause may be one or more of: no XDS110 is connected, invalid firmware update, invalid XDS110 serial number, or faulty USB cable. The firmware and serial number may be updated using the xdsdfu utility found in the .../ccs_base/common/uscif/xds110 directory of your installation. View the XDS110SupportReadMe.pdf file there for instructions. (Emulation package 9.2.0.00002) 
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2020-12-21 15:55:49.720
+!MESSAGE DS_ERROR: Error initializing emulator:
+(Error -260 @ 0x0)
+An attempt to connect to the XDS110 failed.
+The cause may be one or more of: no XDS110 is connected, invalid
+firmware update, invalid XDS110 serial number, or faulty USB
+cable. The firmware and serial number may be updated using the
+xdsdfu utility found in the .../ccs_base/common/uscif/xds110
+directory of your installation. View the XDS110SupportReadMe.pdf
+file there for instructions.
+(Emulation package 9.2.0.00002)
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2020-12-21 16:10:32.224
+!MESSAGE DS_ERROR: CS_DAP_0: Error initializing emulator: (Error -260 @ 0x0) An attempt to connect to the XDS110 failed. The cause may be one or more of: no XDS110 is connected, invalid firmware update, invalid XDS110 serial number, or faulty USB cable. The firmware and serial number may be updated using the xdsdfu utility found in the .../ccs_base/common/uscif/xds110 directory of your installation. View the XDS110SupportReadMe.pdf file there for instructions. (Emulation package 9.2.0.00002) 
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2020-12-21 16:10:32.878
+!MESSAGE DS_ERROR: Error initializing emulator:
+(Error -260 @ 0x0)
+An attempt to connect to the XDS110 failed.
+The cause may be one or more of: no XDS110 is connected, invalid
+firmware update, invalid XDS110 serial number, or faulty USB
+cable. The firmware and serial number may be updated using the
+xdsdfu utility found in the .../ccs_base/common/uscif/xds110
+directory of your installation. View the XDS110SupportReadMe.pdf
+file there for instructions.
+(Emulation package 9.2.0.00002)
+

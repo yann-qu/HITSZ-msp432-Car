@@ -116,11 +116,13 @@ void reflactance(void) {
     }
     //*
     else if ((position > 0) && (position < 237)) {
-        Motor_Forward((3000 - 8 * position), 3700);
+        // Motor_Forward((3000 - 8 * position), 3700);  // 左转
+        Motor_Forward((3000 - 8 * position), 4000);  // 左转
     }
     //*
     else if ((position < 0) && (position > -237)) {
-        Motor_Forward(3700, (3000 + 8 * position));
+        // Motor_Forward(3700, (3000 + 8 * position));  // 右转
+        Motor_Forward(4000, (3000 + 8 * position));  // 右转
     }
     //* T型路口
     if (Data == 0xFF) {
@@ -139,7 +141,7 @@ void reflactance(void) {
             if ((Data == 0xF8) || (Data == 0xF0) || (Data == 0xE0)) {
                 Motor_Forward(VELOCITY0, VELOCITY0);
                 TimedPause(150);
-                Motor_Right(4000, 3900);
+                Motor_Right(4050, 4050);
                 TimedPause(350);
             }
         }
@@ -156,7 +158,7 @@ void reflactance(void) {
                 TimedPause(150);
                 Data = Reflectance_Read(1000);
                 if (Data == 0x00) {
-                    Motor_Left(4000, 3900);
+                    Motor_Left(4050, 4050);
                     TimedPause(400);
                 } else
                     Motor_Forward(VELOCITY0, VELOCITY0);

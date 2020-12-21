@@ -136,8 +136,8 @@ void Motor_Right(uint16_t leftDuty, uint16_t rightDuty){
 // Output: none
 // Assumes: Motor_Init() has been called
 void Motor_Left(uint16_t leftDuty, uint16_t rightDuty){ 
-    P1->OUT &= ~0x40;
-    P1->OUT |= 0x80;
+    P1->OUT &= ~0x40;  //0100 0000->1011 1111
+    P1->OUT |= 0x80;   //1000 0000
       PWM_Duty3(rightDuty);
       PWM_Duty4(leftDuty);
       P3->OUT |= 0xC0;// write this as part of Lab 13// write this as part of Lab 13
