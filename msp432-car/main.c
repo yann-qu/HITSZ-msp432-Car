@@ -15,19 +15,15 @@
 Microcontrollers", ISBN: 978-1466468863, , Jonathan Valvano, copyright (c) 2017
  For more information about my classes, my research, and my books, see
  http://users.ece.utexas.edu/~valvano/
-
 Simplified BSD License (FreeBSD License)
 Copyright (c) 2017, Jonathan Valvano, All rights reserved.
-
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
-
 1. Redistributions of source code must retain the above copyright notice,
    this list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
    and/or other materials provided with the distribution.
-
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -38,7 +34,6 @@ GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
 HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
 LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF
 THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
 The views and conclusions contained in the software and documentation are
 those of the authors and should not be interpreted as representing official
 policies, either expressed or implied, of the FreeBSD Project.
@@ -94,7 +89,7 @@ int32_t position;
 
 void reflactance(void) {
 
-    Data     = Reflectance_Read(500);
+    Data     = Reflectance_Read(1000);
     position = Reflectance_Position(Data);
 
     //* 在正中
@@ -116,25 +111,25 @@ void reflactance(void) {
         TimedPause(100);
     }
     //*
-    else if ((position > 0) && (position < 142)) {
+    else if ((position > 0) && (position < 237)) {
         // Motor_Forward((3000 - 8 * position), 3700);  // 左转
-        Motor_Forward((3500 - 8 * position), 4000);  // 左转
+        Motor_Forward((3000 - 8 * position), 4000);  // 左转
     }
-    //*
-    else if ((position > 142) && (position < 237)) {
-        // Motor_Forward((3000 - 8 * position), 3700);  // 左转
-        Motor_Forward((4000 - 8 * position), 5000);  // 左转
-    }
-    //*
-    else if ((position < 0) && (position > -142)) {
+    // //*
+    // else if ((position > 142) && (position < 237)) {
+    //     Motor_Forward((3000 - 8 * position), 5000);  // 左转
+    // }
+    // //*
+    else if ((position < 0) && (position > -237)) {
         // Motor_Forward(3700, (3000 + 8 * position));  // 右转
-        Motor_Forward(4000, (3500 + 8 * position));  // 右转
+        Motor_Forward(4000, (3000 + 8 * position));  // 右转
     }
-    //*
-    else if ((position < -142) && (position > -237)) {
-        // Motor_Forward(3700, (3000 + 8 * position));  // 右转
-        Motor_Forward(5000, (4000 + 8 * position));  // 右转
-    }
+    // //*
+    // else if ((position < -142) && (position > -237)) {
+    //     Motor_Forward(5000, (3000 + 8 * position));  // 右转
+    // }
+
+
     //* T型路口
     if (Data == 0xFF) {
         Motor_Forward(VELOCITY0, VELOCITY0);
@@ -144,24 +139,24 @@ void reflactance(void) {
     }
     //* 直角右转
     if ((Data == 0xF8) || (Data == 0xF0) || (Data == 0xE0)) {
-        Data = Reflectance_Read(500);
+        Data = Reflectance_Read(1000);
         TimedPause(5);
         if ((Data == 0xF8) || (Data == 0xF0) || (Data == 0xE0)) {
             Motor_Forward(VELOCITY0, VELOCITY0);
             TimedPause(150);
             Motor_Right(4025, 4025);
-            TimedPause(400);
+            TimedPause(420);
         }
     }
     //* 直角左转
     if ((Data == 0x1F) || (Data == 0x0F) || (Data == 0x07)) {
-        Data = Reflectance_Read(500);
+        Data = Reflectance_Read(1000);
         TimedPause(5);
         if ((Data == 0x1F) || (Data == 0x0F) || (Data == 0x07)) {
             Motor_Forward(VELOCITY0, VELOCITY0);
             TimedPause(150);
             Motor_Left(4025, 4025);
-            TimedPause(400);
+            TimedPause(420);
         }
     }
     //* 未识别到黑线
