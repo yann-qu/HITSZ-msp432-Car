@@ -94,7 +94,7 @@ int32_t position;
 
 void reflactance(void) {
 
-    Data     = Reflectance_Read(1000);
+    Data     = Reflectance_Read(500);
     position = Reflectance_Position(Data);
 
     //* 在正中
@@ -116,14 +116,24 @@ void reflactance(void) {
         TimedPause(100);
     }
     //*
-    else if ((position > 0) && (position < 237)) {
+    else if ((position > 0) && (position < 142)) {
         // Motor_Forward((3000 - 8 * position), 3700);  // 左转
-        Motor_Forward((3000 - 8 * position), 4000);  // 左转
+        Motor_Forward((3500 - 8 * position), 4000);  // 左转
     }
     //*
-    else if ((position < 0) && (position > -237)) {
+    else if ((position > 142) && (position < 237)) {
+        // Motor_Forward((3000 - 8 * position), 3700);  // 左转
+        Motor_Forward((4000 - 8 * position), 5000);  // 左转
+    }
+    //*
+    else if ((position < 0) && (position > -142)) {
         // Motor_Forward(3700, (3000 + 8 * position));  // 右转
-        Motor_Forward(4000, (3000 + 8 * position));  // 右转
+        Motor_Forward(4000, (3500 + 8 * position));  // 右转
+    }
+    //*
+    else if ((position < -142) && (position > -237)) {
+        // Motor_Forward(3700, (3000 + 8 * position));  // 右转
+        Motor_Forward(5000, (4000 + 8 * position));  // 右转
     }
     //* T型路口
     if (Data == 0xFF) {
@@ -134,7 +144,7 @@ void reflactance(void) {
     }
     //* 直角右转
     if ((Data == 0xF8) || (Data == 0xF0) || (Data == 0xE0)) {
-        Data = Reflectance_Read(1000);
+        Data = Reflectance_Read(500);
         TimedPause(5);
         if ((Data == 0xF8) || (Data == 0xF0) || (Data == 0xE0)) {
             Motor_Forward(VELOCITY0, VELOCITY0);
@@ -145,7 +155,7 @@ void reflactance(void) {
     }
     //* 直角左转
     if ((Data == 0x1F) || (Data == 0x0F) || (Data == 0x07)) {
-        Data = Reflectance_Read(1000);
+        Data = Reflectance_Read(500);
         TimedPause(5);
         if ((Data == 0x1F) || (Data == 0x0F) || (Data == 0x07)) {
             Motor_Forward(VELOCITY0, VELOCITY0);
