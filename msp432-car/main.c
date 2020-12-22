@@ -70,7 +70,7 @@ policies, either expressed or implied, of the FreeBSD Project.
 #include "..\inc\PWM.h"
 #include "..\inc\Reflectance.h"
 
-#define VELOCITY0 4000
+#define VELOCITY0 4100
 
 // 延时并停止电机输出
 void TimedPause(uint32_t time) {
@@ -111,23 +111,23 @@ void reflactance(void) {
         TimedPause(100);
     }
     //*
-    else if ((position > 0) && (position < 237)) {
+    else if ((position > 0) && (position <= 142)) {
         // Motor_Forward((3000 - 8 * position), 3700);  // 左转
-        Motor_Forward((3000 - 8 * position), 4000);  // 左转
+        Motor_Forward((3200 - 8 * position), 4100);  // 左转
     }
-    // //*
-    // else if ((position > 142) && (position < 237)) {
-    //     Motor_Forward((3000 - 8 * position), 5000);  // 左转
-    // }
-    // //*
-    else if ((position < 0) && (position > -237)) {
+    //*
+    else if ((position > 142) && (position < 237)) {
+        Motor_Forward((2600 - 8 * position), 4100);  // 左转
+    }
+    //*
+    else if ((position < 0) && (position >= -142)) {
         // Motor_Forward(3700, (3000 + 8 * position));  // 右转
-        Motor_Forward(4000, (3000 + 8 * position));  // 右转
+        Motor_Forward(4100, (3200 + 8 * position));  // 右转
     }
-    // //*
-    // else if ((position < -142) && (position > -237)) {
-    //     Motor_Forward(5000, (3000 + 8 * position));  // 右转
-    // }
+    //*
+    else if ((position < -142) && (position > -237)) {
+        Motor_Forward(4100, (2600 + 8 * position));  // 右转
+    }
 
 
     //* T型路口
@@ -142,10 +142,10 @@ void reflactance(void) {
         Data = Reflectance_Read(1000);
         TimedPause(5);
         if ((Data == 0xF8) || (Data == 0xF0) || (Data == 0xE0)) {
-            Motor_Forward(VELOCITY0, VELOCITY0);
+            Motor_Forward(4000, 4000);
             TimedPause(150);
             Motor_Right(4025, 4025);
-            TimedPause(420);
+            TimedPause(440);
         }
     }
     //* 直角左转
@@ -153,10 +153,10 @@ void reflactance(void) {
         Data = Reflectance_Read(1000);
         TimedPause(5);
         if ((Data == 0x1F) || (Data == 0x0F) || (Data == 0x07)) {
-            Motor_Forward(VELOCITY0, VELOCITY0);
+            Motor_Forward(4000, 4000);
             TimedPause(150);
             Motor_Left(4025, 4025);
-            TimedPause(420);
+            TimedPause(440);
         }
     }
     //* 未识别到黑线
