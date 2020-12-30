@@ -59,10 +59,10 @@ policies, either expressed or implied, of the FreeBSD Project.
 // Right motor PWM connected to P2.6/TA0CCP3 (J4.39)
 // Right motor enable connected to P3.6 (J2.11)
 
-#include <stdint.h>
-#include "msp.h"
 #include "..\inc\Bump.h"
 #include "..\inc\Clock.h"
+#include "msp.h"
+#include <stdint.h>
 //#include "..\inc\SysTick.h"
 #include "..\inc\CortexM.h"
 #include "..\inc\LaunchPad.h"
@@ -73,11 +73,12 @@ policies, either expressed or implied, of the FreeBSD Project.
 #define VELOCITY0 4100
 
 // 延时并停止电机输出
-void TimedPause(uint32_t time) {
+void TimedPause(uint32_t time)
+{
     Clock_Delay1ms(time); // run for a while and stop
     Motor_Stop(); // Stop the motors, power down the drivers, and set the PWM
-                      // speed control to 0% duty cycle.
-                      //* 最好不要删，可以防止拐弯过陡
+                  // speed control to 0% duty cycle.
+                  //* 最好不要删，可以防止拐弯过陡
     // while(LaunchPad_Input()==0);  // wait for touch
     // while(LaunchPad_Input());     // wait for release
 }
@@ -87,7 +88,8 @@ void TimedPause(uint32_t time) {
 uint8_t Data;
 int32_t position;
 
-void reflactance(void) {
+void reflactance(void)
+{
 
     Data     = Reflectance_Read(1000);
     position = Reflectance_Position(Data);
@@ -113,20 +115,20 @@ void reflactance(void) {
     //*
     else if ((position > 0) && (position <= 142)) {
         // Motor_Forward((3000 - 8 * position), 3700);  // 左转
-        Motor_Forward((3300 - 8 * position), 4200);  // 左转
+        Motor_Forward((3300 - 8 * position), 4200); // 左转
     }
     //*
     else if ((position > 142) && (position < 237)) {
-        Motor_Forward((2400 - 8 * position), 4300);  // 左转
+        Motor_Forward((2400 - 8 * position), 4300); // 左转
     }
     //*
     else if ((position < 0) && (position >= -142)) {
         // Motor_Forward(3700, (3000 + 8 * position));  // 右转
-        Motor_Forward(4200, (3300 + 8 * position));  // 右转
+        Motor_Forward(4200, (3300 + 8 * position)); // 右转
     }
     //*
     else if ((position < -142) && (position > -237)) {
-        Motor_Forward(4300, (2400 + 8 * position));  // 右转
+        Motor_Forward(4300, (2400 + 8 * position)); // 右转
     }
 
 
@@ -167,7 +169,8 @@ void reflactance(void) {
 
 
 // 停止运动
-void endstop(void) {
+void endstop(void)
+{
     Data = Reflectance_Read(1000);
     if (Data == 0xDB) { // 1101 1011
         Motor_Stop();
@@ -180,7 +183,8 @@ void endstop(void) {
 
 
 // bump and driver
-void bumprun(void) {
+void bumprun(void)
+{
 
     uint8_t numflag = 0;
     numflag         = Bump_Read();
@@ -203,7 +207,8 @@ void bumprun(void) {
 }
 
 // 检查是否发生碰撞
-void bumprun1(void) {
+void bumprun1(void)
+{
     uint8_t numflag1 = 0;
     numflag1         = Bump_Read1();
     if ((numflag1 & 0xED) != 0xED) {
@@ -215,7 +220,8 @@ void bumprun1(void) {
 }
 
 
-int main(void) {
+int main(void)
+{
     Clock_Init48MHz(); // Configure the system clock to run at the fastest
                        // and most accurate settings.
     LaunchPad_Init();  // init built-in switches and LEDs
